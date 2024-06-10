@@ -20,8 +20,41 @@ const getSymbol = () => {
     return symbols[Math.floor(Math.random() * symbols.length)]
 }
 
+const generatePassword = (getLetterLowerCase, getLetterUpperCase, getNumber, getSymbol) => {
+    
+    let password = "";
+
+    const passwordLength = 10
+
+    const generators = [
+        getLetterLowerCase,
+        getLetterUpperCase,
+        getNumber,
+        getSymbol,
+    ]
+
+    for(i = 0; i < passwordLength; i = i + 4) {
+        generators.forEach(() => {
+
+            const randomValue = generators[Math.floor(Math.random() * generators.length)]()
+
+            password += randomValue
+        })
+    }
+//Cortando a senha para ter apenas 10 caracteres:
+    password = password.slice(0, passwordLength)
+
+    generatePasswordElement.style.display = "block"
+    generatePasswordElement.querySelector("h4").innerText = password
+}
+
 
 // Eventos
 generatePasswordButton.addEventListener("click", () => {
-    console.log("teste")
+    generatePassword(
+        getLetterLowerCase,
+        getLetterUpperCase,
+        getNumber,
+        getSymbol
+    )
 })
